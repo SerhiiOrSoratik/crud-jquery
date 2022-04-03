@@ -6,12 +6,6 @@ class productsModel {
         return model.product.findAll();
     }
 
-    async getProduct(id) {
-        return await model.product.findAll({
-            where: {id: id}
-        });
-    }
-
     async createProduct(req) {
         return await model.product.create({
             caption: req.body.caption,
