@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="header">
+    <h1>Book shop</h1>
+    <button id="addBook" onclick="openForm('createForm')">Add book</button>
+</div>
+
+<div class="form-popup" id="createForm">
+    <form id="crForm" method="post" enctype="application/json" class="form-container">
+        <div class="form-group">
+            <label for="cr_caption">Caption</label>
+            <input id="cr_caption" name="caption" placeholder="Enter caption" required/>
+        </div>
+        <div class="form-group">
+            <label for="cr_price">Price</label>
+            <input id="cr_price" type="number" name="price" placeholder="Enter price" required/>
+        </div>
+        <div class="form-group">
+            <label for="cr_description">Description</label>
+            <input id="cr_description" name="description" placeholder="Enter description"/>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+            <button class="btn" value="Cancel" onclick="hideForm('createForm')">Cancel</button>
+            <input class="btn" type="submit" value="Upload">
+        </div>
+    </form>
+</div>
+
+<div class="form-popup" id="updateForm">
+</div>
+
+<div id="container">
+    <div id="catalog"></div>
+</div>
+</body>
+
+</html>

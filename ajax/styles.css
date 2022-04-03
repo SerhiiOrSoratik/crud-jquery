@@ -1,0 +1,124 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: rgba(54, 54, 51, 0.54);
+
+}
+
+p {
+    padding: 0 10px 0 10px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    color: whitesmoke;
+}
+
+#header {
+    background-color: #363633;
+    border-bottom: 1px solid #000000;
+    color: #999999;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+#header h1 {
+    padding: 0;
+    margin: 0;
+}
+
+#container {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#catalog {
+    width: 100%;
+    color: #999999;
+    background-color: #363633;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    padding-top: 25px;
+}
+
+#addBook {
+    background: #656565;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#656565), to(#444));
+    background: -moz-linear-gradient(#656565, #444);
+    background: linear-gradient(#656565, #444);
+    border: solid 1px #535353;
+    border-bottom: solid 3px #414141;
+    box-shadow: inset 0 0 0 1px #939393;
+    color: #fff;
+    text-shadow: 0 1px 0 #2f2f2f;
+}
+
+#addBook:hover {
+    background: #4c4c4c;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#4c4c4c), to(#565656));
+    background: -moz-linear-gradient(#4c4c4c, #565656);
+    background: linear-gradient(#4c4c4c, #565656);
+    border: solid 1px #464646;
+    border-bottom: solid 3px #414141;
+    box-shadow: inset 0 0 0 1px #818181;
+}
+
+#addBook:active {
+    background: #474747;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#474747), to(#444));
+    background: -moz-linear-gradient(#474747, #444);
+    background: linear-gradient(#474747, #444);
+    border: solid 1px #2f2f2f;
+    box-shadow: inset 0 10px 15px 0 #3e3e3e;
+}
+
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 4%;
+    right: 5px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+.form-container {
+    width: 320px;
+    padding: 10px;
+    background-color: #999999;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-container input[type=text] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+.form-container input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+.form-container .btn {
+    background: #656565;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#656565), to(#444));
+    background: -moz-linear-gradient(#656565, #444);
+    background: linear-gradient(#656565, #444);
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 45%;
+    opacity: 0.8;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+}
