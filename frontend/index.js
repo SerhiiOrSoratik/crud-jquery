@@ -9,8 +9,8 @@ $.ajax({
             <div style="border: 1px solid black; width: 20%; min-width: 300px; height: auto; margin-bottom: 25px">
                 <p style="color: gray; font-size: 12px">${el.availability ? ' ' : 'Немає в наявності'}</p>
                 <p>${el.caption}</p>
-                <button onclick="removeById(${el.id})" style="transform: translate(150px, -50px); position: absolute">x</button>
-                <button onclick="editBook(${el.id})" style="transform: translate(100px, -50px); position: absolute">Edit</button>
+                <button onclick="removeById(${el.id})" style="transform: translate(150px, -50px); position: absolute; height: 25px; width: 25px">x</button>
+                <button onclick="editBook(${el.id})" style="transform: translate(120px, -50px); position: absolute; height: 25px; width: 25px">✎</button>
                 <p>${el.price} грн</p>
                 <p style="word-wrap: break-word; color: gray">${el.description}</p>
             </div>
@@ -46,7 +46,7 @@ $(document).ready(function (e) {
             dataType: 'json',
             type: "PUT",
             data: $('#updtForm').serialize(),
-            success: function (data) {
+            success: function () {
                 location.reload();
             },
         });
@@ -63,24 +63,28 @@ const removeById = (id) => {
     });
 }
 
-function openForm(formName) {
-    document.getElementById(formName).style.display = "block";
+function openForm() {
+    $("#createForm").attr("style", "display:block");
 }
 
 function hideForm(formName) {
-    $("#crForm")[0].reset();
-    document.getElementById(formName).style.display = "none";
+    const form = $("#createForm");
+    form.css("style", "display:none");
+    form.empty();
 }
 
 function hideUpdateForm() {
-    document.getElementById('updateForm').style.display = "none";
-    $("#updateForm").empty()
+    const form = $("#updateForm");
+    form.css("style", "display:none");
+    form.empty();
 }
 
 const editBook = (id) => {
-    $("#updateForm").append(`
+    const form = $("#updateForm");
+    form.append(`
         <form id="updtForm" method="put" style="width: 320px; padding: 10px; background-color: #999999; display: flex; flex-direction: column; gap: 25px;">
-                <input id="upd_id" name="id"  placeholder="Enter id" required value="${id}" style="display: none" readonly/>
+                <h3>Edit book</h3>
+                <input id="upd_id" name="id" required value="${id}" style="display: none" readonly/>
                 <input id="upd_caption" name="caption" placeholder="Enter caption" required"/>
                 <input id="upd_price" type="number" name="price" placeholder="Enter price" required"/>
                 <input id="upd_description" name="description" placeholder="Enter description""/>
@@ -92,7 +96,7 @@ const editBook = (id) => {
             </div>
         </form>`
     )
-    openForm("updateForm")
+    form.attr("style", "display:block");
 }
 
 
