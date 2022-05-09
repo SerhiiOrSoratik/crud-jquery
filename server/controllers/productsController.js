@@ -15,6 +15,19 @@ class Products {
         }
     }
 
+    async getProductById(req, res) {
+        try {
+            const products = await productModel.getProductById(req.params.id);
+            res.status(200);
+            res.json(products);
+        }
+        catch {
+            console.log('Bad request')
+            res.status(400);
+            res.end('Bad request');
+        }
+    }
+
     async createProduct(req, res) {
         try {
             const newProduct = await productModel.createProduct(req, res);

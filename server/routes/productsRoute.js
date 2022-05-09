@@ -7,6 +7,10 @@ router.get('/', (req, res) => {
     productsRoute.getProducts(req, res);
 })
 
+router.get('/:id', (req, res) => {
+    productsRoute.getProductById(req, res);
+})
+
 router.post('/', (req, res) => {
     productsRoute.createProduct(req, res);
 });

@@ -10,7 +10,7 @@
 <body>
 <div id="header">
     <h1>Book shop</h1>
-    <button id="addBook" onclick="openForm()">Add book</button>
+    <button class="form_button" style="width: 15%" id="addBook" onclick="openForm()">Add book</button>
 </div>
 
 <div class="form-popup" id="createForm">
@@ -29,8 +29,8 @@
             <input id="cr_description" name="description" placeholder="Enter description"/>
         </div>
         <div style="display: flex; justify-content: space-between">
-            <input class="btn" type="submit" value="Upload">
-            <button class="btn" value="Cancel" onclick="hideForm()">Cancel</button>
+            <input class="form_button" type="submit" value="Add">
+            <button class="form_button" value="Cancel" onclick="hideForm()">Cancel</button>
         </div>
     </form>
 </div>

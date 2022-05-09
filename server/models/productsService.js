@@ -2,8 +2,16 @@ const model = require('../modelsDb');
 
 class productsModel {
 
-    getProducts() {
-        return model.product.findAll();
+    async getProducts() {
+        return await model.product.findAll();
+    }
+
+    async getProductById(id) {
+        return await model.product.findOne({
+            where: {
+                id: id
+            }
+        });
     }
 
     async createProduct(req) {

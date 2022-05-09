@@ -1,102 +1,159 @@
-$.ajax({
-    headers: {"Accept": "application/json"},
-    type: 'GET',
-    url: "http://localhost:3000/product",
-    crossDomain: true,
-    success: function (data) {
+$(document).ready(() => {
+
+    $("#createForm").on('submit', e => {
+        e.preventDefault();
+        const addBookPromise = new Promise(resolve => {
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                },
+                url: "http://localhost:3000/product",
+                dataType: 'json',
+                type: "POST",
+                data: $('#crForm').serialize(),
+                success: () => {
+                    resolve();
+                },
+            });
+        })
+        addBookPromise.then(() => {
+            location.reload();
+        })
+    })
+
+    $("#updateForm").on('submit', e => {
+        e.preventDefault();
+        const updateBookPromise = new Promise(resolve => {
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                },
+                url: "http://localhost:3000/product/" + $('#upd_id').attr("value"),
+                dataType: 'json',
+                type: "PUT",
+                data: $('#updtForm').serialize(),
+                success: () => {
+                    resolve();
+                },
+            });
+        });
+        updateBookPromise.then(() => {
+            location.reload();
+        })
+    })
+
+    const loadData = new Promise(resolve => {
+        $.ajax({
+            headers: {"Accept": "application/json"},
+            type: 'GET',
+            url: "http://localhost:3000/product",
+            crossDomain: true,
+            success: data => {
+                resolve(data);
+            }
+        })
+    });
+
+    loadData.then(data => {
         data.forEach(el => {
             $('#catalog').append(`
             <div style="border: 1px solid black; width: 20%; min-width: 300px; height: auto; margin-bottom: 25px">
-                <p style="color: gray; font-size: 12px">${el.availability ? ' ' : 'Немає в наявності'}</p>
+                <button onclick="removeById(${el.id})" style="transform: translate(145px, 5px); position: absolute; height: 25px; width: 25px">x</button>
+                <button onclick="editBook(${el.id})" style="transform: translate(115px, 5px); position: absolute; height: 25px; width: 25px">✎</button>
+                <button onclick="downloadJsonFile(${el.id})" style="transform: translate(70px, 5px); position: absolute; height: 25px; width: 40px">json</button>
+                <button onclick="downloadScvFile(${el.id})" style="transform: translate(25px, 5px); position: absolute; height: 25px; width: 40px">scv</button>
+                <p style="color: gray; font-size: 12px; padding-top: 10px">${el.availability ? ' ' : 'Немає в наявності'}</p>
                 <p>${el.caption}</p>
-                <button onclick="removeById(${el.id})" style="transform: translate(150px, -50px); position: absolute; height: 25px; width: 25px">x</button>
-                <button onclick="editBook(${el.id})" style="transform: translate(120px, -50px); position: absolute; height: 25px; width: 25px">✎</button>
                 <p>${el.price} грн</p>
                 <p style="word-wrap: break-word; color: gray">${el.description}</p>
-            </div>
-             `)
+            </div>`)
         })
-    }
-});
+    })
+})
 
-$(document).ready(function (e) {
-    $("#createForm").on('submit', (function (e) {
-        e.preventDefault();
+const getById = id => {
+    const getByIdPromise = new Promise(resolve => {
         $.ajax({
-            headers: {
-                'Accept': 'application/json',
-            },
-            url: "http://localhost:3000/product",
-            dataType: 'json',
-            type: "POST",
-            data: $('#crForm').serialize(),
-            success: function (data) {
-                location.reload();
+            url: "http://localhost:3000/product/" + id,
+            type: 'get',
+            success: data => {
+                resolve(data);
             },
         });
-    }));
+    })
+    return getByIdPromise.then(data => {
+        return data;
+    })
+}
 
-    $("#updateForm").on('submit', (function (e) {
-        e.preventDefault();
+const removeById = id => {
+    const promise = new Promise(resolve => {
         $.ajax({
-            headers: {
-                'Accept': 'application/json',
-            },
-            url: "http://localhost:3000/product/" + $('#upd_id').attr("value"),
-            dataType: 'json',
-            type: "PUT",
-            data: $('#updtForm').serialize(),
-            success: function () {
-                location.reload();
+            url: "http://localhost:3000/product/" + id,
+            type: 'DELETE',
+            success: () => {
+                resolve();
             },
         });
-    }));
-});
-
-const removeById = (id) => {
-    $.ajax({
-        url: "http://localhost:3000/product/" + id,
-        type: 'DELETE',
-        success: function () {
-            location.reload();
-        }
-    });
+    })
+    promise.then(() => {
+        location.reload();
+    })
 }
 
-function openForm() {
-    $("#createForm").attr("style", "display:block");
-}
+const openForm = () => $("#createForm").attr("style", "display:block");
 
-function hideForm(formName) {
-    const form = $("#createForm");
-    form.css("style", "display:none");
-    form.empty();
-}
+const hideForm = () => location.reload();
 
-function hideUpdateForm() {
+const hideUpdateForm = () => {
     const form = $("#updateForm");
     form.css("style", "display:none");
     form.empty();
 }
 
-const editBook = (id) => {
+const editBook = id => {
     const form = $("#updateForm");
     form.append(`
-        <form id="updtForm" method="put" style="width: 320px; padding: 10px; background-color: #999999; display: flex; flex-direction: column; gap: 25px;">
+        <form id="updtForm" method="put" class="update_form">
                 <h3>Edit book</h3>
                 <input id="upd_id" name="id" required value="${id}" style="display: none" readonly/>
                 <input id="upd_caption" name="caption" placeholder="Enter caption" required"/>
                 <input id="upd_price" type="number" name="price" placeholder="Enter price" required"/>
                 <input id="upd_description" name="description" placeholder="Enter description""/>
-            <div style="display: flex; justify-content: space-between">
-                <input style=" background: #656565; background: -webkit-gradient(linear, 0 0, 0 bottom, from(#656565), to(#444)); background: -moz-linear-gradient(#656565, #444); background: linear-gradient(#656565, #444);
-                    padding: 16px 20px; border: none; cursor: pointer; width: 45%; opacity: 0.8;" type="submit" value="Edit">
-                <button style=" background: #656565; background: -webkit-gradient(linear, 0 0, 0 bottom, from(#656565), to(#444)); background: -moz-linear-gradient(#656565, #444); background: linear-gradient(#656565, #444);
-                    padding: 16px 20px; border: none; cursor: pointer; width: 45%; opacity: 0.8;" onclick="{hideUpdateForm()}">Cancel</button>
-            </div>
-        </form>`
-    )
+                <div style="display: flex; justify-content: space-between">
+                    <input class="form_button" type="submit" value="Edit">
+                    <button class="form_button" onclick="{hideUpdateForm()}">Cancel</button>
+                </div>
+        </form>
+    `)
     form.attr("style", "display:block");
+}
+
+const downloadScvFile = async id => {
+    const data = await getById(id);
+    const csv = convertToCSV(data);
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(csv));
+    element.setAttribute('download', `${data.caption}.csv`);
+    element.click();
+}
+
+const convertToCSV = data => {
+    const keys = Object.keys(data);
+    const values = Object.values(data);
+    let result = keys.join(',');
+    result += '\n';
+    result += values.join(',')
+    return result;
+}
+
+const downloadJsonFile = async id => {
+    const data = await getById(id);
+    const json = JSON.stringify(data);
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(json));
+    element.setAttribute('download', `${data.caption}.json`);
+    element.click();
 }
 
 
