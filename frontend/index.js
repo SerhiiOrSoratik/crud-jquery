@@ -55,8 +55,14 @@ $(document).ready(() => {
     });
 
     loadData.then(data => {
-        data.forEach(el => {
-            $('#catalog').append(`
+        render(data);
+    })
+})
+
+const render = data => {
+    $('#catalog')[0].innerHTML = '';
+    data.forEach(el => {
+        $('#catalog').append(`
             <div style="border: 1px solid black; width: 20%; min-width: 300px; height: auto; margin-bottom: 25px">
                 <button onclick="removeById(${el.id})" style="transform: translate(145px, 5px); position: absolute; height: 25px; width: 25px">x</button>
                 <button onclick="editBook(${el.id})" style="transform: translate(115px, 5px); position: absolute; height: 25px; width: 25px">✎</button>
@@ -67,9 +73,8 @@ $(document).ready(() => {
                 <p>${el.price} грн</p>
                 <p style="word-wrap: break-word; color: gray">${el.description}</p>
             </div>`)
-        })
     })
-})
+}
 
 const getById = id => {
     const getByIdPromise = new Promise(resolve => {
@@ -154,6 +159,36 @@ const downloadJsonFile = async id => {
     element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(json));
     element.setAttribute('download', `${data.caption}.json`);
     element.click();
+}
+
+const search = () => {
+    const searchValue = $("#search")[0].value;
+
+    const search = new Promise(resolve => {
+        if (searchValue) {
+            $.ajax({
+                url: "http://localhost:3000/product/search/" + searchValue,
+                type: 'get',
+                success: data => {
+                    console.log(data)
+                    resolve(data);
+                },
+            });
+        } else {
+            $.ajax({
+                headers: {"Accept": "application/json"},
+                type: 'GET',
+                url: "http://localhost:3000/product",
+                crossDomain: true,
+                success: data => {
+                    resolve(data);
+                }
+            })
+        }
+    })
+    return search.then(data => {
+        render(data);
+    })
 }
 
 

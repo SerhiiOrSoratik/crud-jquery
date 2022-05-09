@@ -11,6 +11,10 @@ router.get('/:id', (req, res) => {
     productsRoute.getProductById(req, res);
 })
 
+router.get('/search/:searchValue', (req, res) => {
+    productsRoute.search(req, res);
+})
+
 router.post('/', (req, res) => {
     productsRoute.createProduct(req, res);
 });

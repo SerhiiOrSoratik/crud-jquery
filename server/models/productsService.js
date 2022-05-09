@@ -1,4 +1,5 @@
 const model = require('../modelsDb');
+const {Op} = require("sequelize");
 
 class productsModel {
 
@@ -10,6 +11,16 @@ class productsModel {
         return await model.product.findOne({
             where: {
                 id: id
+            }
+        });
+    }
+
+    async search(searchValue) {
+        return await model.product.findAll({
+            where: {
+                caption: {
+                    [Op.like]: searchValue + '%'
+                }
             }
         });
     }
