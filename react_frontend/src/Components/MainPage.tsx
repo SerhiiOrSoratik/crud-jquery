@@ -1,11 +1,18 @@
 import {useMemo, useState} from "react";
 import {getEntityById, loadData, removeEntityById} from "../Api/Api";
 import {Form} from "./Form";
+import {Entity} from "../Types";
 
-export const MainPage = (props) => {
+type Props = {
+    filter: string,
+    showForm: boolean,
+    setShowForm: any
+}
+
+export const MainPage = (props : Props) => {
 
     const [allEntities, setEntities] = useState([]);
-    const [editingEntity, setEditingEntity] = useState({});
+    const [editingEntity, setEditingEntity] = useState({id: '', caption: '', price: 0, description: '', availability: false});
 
     useMemo(() => {
         loadData(props.filter).then(result => setEntities(result));
@@ -15,16 +22,16 @@ export const MainPage = (props) => {
         loadData(props.filter).then(result => setEntities(result));
     }
 
-    const removeById = (id) => {
-        removeEntityById(id).then(() => loadData().then(result => setEntities(result)));
+    const removeById = (id : string) => {
+        removeEntityById(id).then(() => loadData('').then(result => setEntities(result)));
     }
 
-    const editById = (entity) => {
+    const editById = (entity : Entity) => {
         setEditingEntity(entity)
         props.setShowForm(true)
     }
 
-    const downloadJsonFile = async (id) => {
+    const downloadJsonFile = async (id: string) => {
         const data = await getEntityById(id);
         const json = JSON.stringify(data);
         let element = document.createElement('a');
@@ -33,7 +40,7 @@ export const MainPage = (props) => {
         element.click();
     }
 
-    const downloadScvFile = async (id) => {
+    const downloadScvFile = async (id: string) => {
         const data = await getEntityById(id);
         const csv = convertToCSV(data);
         let element = document.createElement('a');
@@ -42,7 +49,7 @@ export const MainPage = (props) => {
         element.click();
     }
 
-    const convertToCSV = data => {
+    const convertToCSV = (data : Entity) => {
         const keys = Object.keys(data);
         const values = Object.values(data);
         let result = keys.join(',');
@@ -58,7 +65,7 @@ export const MainPage = (props) => {
                                         editingEntity={editingEntity} updateData={updateData}/> : null}
                 <div id='catalog'>
                     {
-                        allEntities ? allEntities.map(entity =>
+                        allEntities ? allEntities.map((entity : Entity) =>
                             <div style={{
                                 border: '1px solid black',
                                 width: '20%',

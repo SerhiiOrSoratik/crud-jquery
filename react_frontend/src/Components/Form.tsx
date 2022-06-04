@@ -1,14 +1,22 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {createEntity, editEntityById} from "../Api/Api";
+import {Entity} from "../Types";
 
-export const Form = (props) => {
+type Props = {
+    setShowForm: any,
+    setEditingEntity: any;
+    editingEntity: Entity;
+    updateData: any
+}
+
+export const Form = (props : Props) => {
 
     const [caption, setCaption] = useState(props?.editingEntity?.caption ? props.editingEntity.caption : '')
     const [price, setPrice] = useState(props?.editingEntity?.price ? props.editingEntity.price : 0)
     const [description, setDescription] = useState(props?.editingEntity?.description ? props.editingEntity.description : '')
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (props.editingEntity?.id) {
             editEntityById({caption, price, description}, props.editingEntity.id).then(() => props.updateData())
@@ -21,7 +29,7 @@ export const Form = (props) => {
     const clear = () => {
         props.setShowForm(false)
         setDescription('')
-        setPrice('')
+        setPrice(0)
         setCaption('')
         props.setEditingEntity({})
     }

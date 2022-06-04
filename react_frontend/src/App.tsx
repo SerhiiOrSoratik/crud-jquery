@@ -18,7 +18,6 @@ function App() {
                 filter={filter}
                 showForm={showForm}
                 setShowForm={setShowForm}/>
-            />
         </>
     );
 }

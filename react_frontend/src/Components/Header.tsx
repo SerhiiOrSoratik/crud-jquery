@@ -1,7 +1,12 @@
-export const Header = (props) => {
+type Props = {
+    setFilter: any,
+    setShowForm: any
+}
+
+export const Header = (props: Props) => {
 
     const search = () => {
-        const searchValue = document.getElementById("search").value;
+        const searchValue = (document.getElementById("search") as HTMLInputElement).value;
         props.setFilter(searchValue)
     }
 

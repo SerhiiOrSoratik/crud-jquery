@@ -1,4 +1,6 @@
-export const loadData = async (searchValue) => {
+import {NewOrUpdatedEntity} from "../Types";
+
+export const loadData = async (searchValue : string) => {
     if (searchValue) {
         return await fetch('http://localhost:3001/product/search/' + searchValue,
             {
@@ -18,7 +20,7 @@ export const loadData = async (searchValue) => {
     }
 }
 
-export const removeEntityById = async (id) => {
+export const removeEntityById = async (id : string) => {
     return await fetch('http://localhost:3001/product/' + id,
         {
             method: 'DELETE',
@@ -27,7 +29,7 @@ export const removeEntityById = async (id) => {
         .catch(error => console.log(error))
 }
 
-export const getEntityById = async (id) => {
+export const getEntityById = async (id : string) => {
     return await fetch('http://localhost:3001/product/' + id,
         {
             method: 'GET',
@@ -37,7 +39,7 @@ export const getEntityById = async (id) => {
         .catch(error => console.log(error))
 }
 
-export const createEntity = async (entity) => {
+export const createEntity = async (entity : NewOrUpdatedEntity) => {
     return await fetch('http://localhost:3001/product',
         {
             method: 'POST',
@@ -48,7 +50,7 @@ export const createEntity = async (entity) => {
         .catch(error => console.log(error))
 }
 
-export const editEntityById = async (entity, id) => {
+export const editEntityById = async (entity : NewOrUpdatedEntity, id : string) => {
     return await fetch('http://localhost:3001/product/' + id,
         {
             method: 'PUT',
