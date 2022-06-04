@@ -7,7 +7,7 @@ $(document).ready(() => {
                 headers: {
                     'Accept': 'application/json',
                 },
-                url: "http://localhost:3000/product",
+                url: "http://localhost:3001/product",
                 dataType: 'json',
                 type: "POST",
                 data: $('#crForm').serialize(),
@@ -28,7 +28,7 @@ $(document).ready(() => {
                 headers: {
                     'Accept': 'application/json',
                 },
-                url: "http://localhost:3000/product/" + $('#upd_id').attr("value"),
+                url: "http://localhost:3001/product/" + $('#upd_id').attr("value"),
                 dataType: 'json',
                 type: "PUT",
                 data: $('#updtForm').serialize(),
@@ -46,7 +46,7 @@ $(document).ready(() => {
         $.ajax({
             headers: {"Accept": "application/json"},
             type: 'GET',
-            url: "http://localhost:3000/product",
+            url: "http://localhost:3001/product",
             crossDomain: true,
             success: data => {
                 resolve(data);
@@ -79,7 +79,7 @@ const render = data => {
 const getById = id => {
     const getByIdPromise = new Promise(resolve => {
         $.ajax({
-            url: "http://localhost:3000/product/" + id,
+            url: "http://localhost:3001/product/" + id,
             type: 'get',
             success: data => {
                 resolve(data);
@@ -94,7 +94,7 @@ const getById = id => {
 const removeById = id => {
     const promise = new Promise(resolve => {
         $.ajax({
-            url: "http://localhost:3000/product/" + id,
+            url: "http://localhost:3001/product/" + id,
             type: 'DELETE',
             success: () => {
                 resolve();
