@@ -1,1 +1,4 @@
-# crud-jquery
+# internet shop
+# jquery
+# react
+# typescript
