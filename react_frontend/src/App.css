@@ -1,0 +1,95 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: rgba(54, 54, 51, 0.54);
+
+}
+
+p {
+    padding: 0 10px 0 10px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    color: whitesmoke;
+}
+
+#header {
+    background-color: #363633;
+    border-bottom: 1px solid #000000;
+    color: #999999;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+#header h1 {
+    padding: 0;
+    margin: 0;
+}
+
+#container {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#catalog {
+    width: 100%;
+    color: #999999;
+    background-color: #363633;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    padding-top: 25px;
+}
+
+.form-container {
+    width: 100%;
+    background-color: #999999;
+    padding-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-container input[type=text] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+.form-container input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+.form-group {
+    padding-left: 40%;
+    padding-right: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form_button {
+    background: #656565;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#656565), to(#444));
+    background: -moz-linear-gradient(#656565, #444);
+    background: linear-gradient(#656565, #444);
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 45%;
+    opacity: 0.8;
+}
+
+.update_form {
+    width: 320px;
+    padding: 10px;
+    background-color: #999999;
+    display: flex;
+    flex-direction: column;
+    gap: 25px
+}
