@@ -1,8 +1,10 @@
-const http = require("http");
-http.createServer(function(request,response){
+const fs = require("fs");
+const zlib = require("zlib");
 
-    response.end("Hello NodeJS!");
+let readableStream = fs.createReadStream("hello.txt", "utf8");
 
-}).listen(3000, "127.0.0.1",function(){
-    console.log("Сервер начал прослушивание запросов на порту 3000");
-});
+let writeableStream = fs.createWriteStream("hello.txt.gz");
+
+let gzip = zlib.createGzip();
+
+readableStream.pipe(gzip).pipe(writeableStream);
