@@ -1,6 +1,8 @@
-const Router = require('express');
-const productsRoute = require('../controllers/productsController');
-const router = new Router();
+import {Router} from 'express'
+import {Products} from '../controllers/productsController';
+const productsRoute = new Products();
+
+const router = Router();
 
 
 router.get('/', (req, res) => {
@@ -27,4 +29,4 @@ router.delete('/:id', (req, res) => {
     productsRoute.deleteProduct(req, res);
 })
 
-module.exports = router;
+export default router;

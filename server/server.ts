@@ -1,7 +1,7 @@
-const app = require('./app');
-const sequalize = require('./sequelize');
-const modelDb = require('./modelsDb')
-const express = require("express");
+import app from './app'
+import sequalize from './sequelize'
+// import modelDb from './modelsDb'
+import express from 'express';
 
 const start = async () => {
     try {
@@ -14,6 +14,7 @@ const start = async () => {
     }
 }
 
-start();
+start()
+    .then(() => console.log('server started'));
 
 

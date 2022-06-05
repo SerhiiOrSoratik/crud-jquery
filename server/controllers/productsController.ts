@@ -1,8 +1,9 @@
-const productModel = require('../models/productsService');
+import {ProductsModel} from "../models/productsService";
+const productModel = new ProductsModel();
 
-class Products {
+export class Products {
 
-    async getProducts(req, res) {
+    async getProducts(req: any, res: any) {
         try {
             const products = await productModel.getProducts();
             res.status(200);
@@ -14,7 +15,7 @@ class Products {
         }
     }
 
-    async getProductById(req, res) {
+    async getProductById(req: any, res: any) {
         try {
             const products = await productModel.getProductById(req.params.id);
             res.status(200);
@@ -26,7 +27,7 @@ class Products {
         }
     }
 
-    async search(req, res) {
+    async search(req: any, res: any) {
         try {
             const products = await productModel.search(req.params.searchValue);
             res.status(200);
@@ -39,9 +40,10 @@ class Products {
     }
 
 
-    async createProduct(req, res) {
+    async createProduct(req: any, res: any) {
         try {
-            const newProduct = await productModel.createProduct(req, res);
+            const {caption, price, description} = req.body
+            const newProduct = await productModel.createProduct(caption, price, description);
             res.status(201);
             res.json(newProduct);
         } catch (e) {
@@ -51,9 +53,9 @@ class Products {
         }
     }
 
-    async updateProduct(req, res) {
+    async updateProduct(req: any, res: any) {
         try {
-            res.json(await productModel.updateProduct(req));
+            res.json(await productModel.updateProduct(req.body, req.params.id));
             res.status(200);
         } catch (e) {
             console.log(e);
@@ -62,7 +64,7 @@ class Products {
         }
     }
 
-    async deleteProduct(req, res) {
+    async deleteProduct(req: any, res: any) {
         try {
             const id = req.params.id;
             res.status(productModel.deleteProduct(id));
@@ -76,5 +78,3 @@ class Products {
     }
 
 }
-
-module.exports = new Products();
